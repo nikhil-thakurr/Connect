@@ -1,0 +1,1 @@
+Always call connection to db first before listening to the server
