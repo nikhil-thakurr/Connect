@@ -1,1 +1,4 @@
 Always call connection to db first before listening to the server
+There is DB level DATA SANITATION and There is API level DATA SANITATION
+validator npm library is very good for validations
+runvalidators ensures to adhere checks when a data is updated
