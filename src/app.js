@@ -2,6 +2,8 @@ const express =require("express")
 const connectDB=require("./config/database")
 const app =express();
 const User = require("./models/user")
+const validateSignUpData = require("./utils/validations")
+const bcrypt = require("bcrypt");
 
 app.use(express.json());
 
@@ -15,17 +17,57 @@ app.post("/signup",async (req,res)=>{
 
     // })
 
-    const user =new User(req.body);
-
     try{
 
+        //validate the data
+    validateSignUpData(req);
+
+    const {firstName,lastName,password,emailId}=req.body;
+
+    const hashPassword = await bcrypt.hash(password,10);
+
+
+    const user =new User({
+        firstName,
+        lastName,
+        emailId,
+        password:hashPassword,
+
+    });
         await user.save();
 
         res.send("User Added succesfully");
     }
     catch(err){
 
-        res.status(400).send("error saving the user :" + err.message);
+        res.status(400).send("ERROR : " + err.message);
+
+    }
+})
+
+app.post("/login",async(req,res)=>{
+    try{
+
+        const {emailId,password}=req.body;
+
+        const user = await User.findOne({emailId:emailId});
+
+        if(!user){
+            throw new Error("User Doesnot exist");
+        }
+
+        const isValid = await bcrypt.compare(password,user.password);
+        if(!isValid){
+            throw new Error("Password is incorrect");
+
+        }
+
+        res.send("Logged in SuccesFully")
+
+    }
+    catch(err){
+
+        res.status(400).send("ERROR : " + err.message);
 
     }
 })
