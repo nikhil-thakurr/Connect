@@ -4,8 +4,12 @@ const app =express();
 const User = require("./models/user")
 const validateSignUpData = require("./utils/validations")
 const bcrypt = require("bcrypt");
+const cookieparser = require("cookie-parser")
+const jwt = require("jsonwebtoken");
+const userAuth = require("./middlewares/auth")
 
 app.use(express.json());
+app.use(cookieparser());
 
 
 app.post("/signup",async (req,res)=>{
@@ -56,12 +60,14 @@ app.post("/login",async(req,res)=>{
             throw new Error("User Doesnot exist");
         }
 
-        const isValid = await bcrypt.compare(password,user.password);
-        if(!isValid){
+        const isValid = await user.checkPassword(password);
+        if(!isValid){  
             throw new Error("Password is incorrect");
 
         }
-
+        const token =await user.getJWT(); 
+        console.log(token);
+        res.cookie("token",token,{expires:new Date(Date.now()+8*9000000)})
         res.send("Logged in SuccesFully")
 
     }
@@ -71,6 +77,17 @@ app.post("/login",async(req,res)=>{
 
     }
 })
+
+app.get("/profile",userAuth,async(req,res)=>{
+
+    try{
+        const user = req.user;
+        res.send(user)
+    }
+    catch(err){
+        res.status(400).send("ERROR : " + err.message);
+    }
+}) 
 
 app.get("/user",async (req,res)=>{
     const userEmail =req.body.emailId;

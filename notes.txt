@@ -1,6 +1,9 @@
-Always call connection to db first before listening to the server
-There is DB level DATA SANITATION and There is API level DATA SANITATION
-validator npm library is very good for validations
-runvalidators ensures to adhere checks when a data is updated
-Never trust req.body and always do checks and validations as hackers can send malicious data anytime
-npm bcrypt package is used for password encryption
+- Always call connection to db first before listening to the server
+- There is DB level DATA SANITATION and There is API level DATA SANITATION
+- validator npm library is very good for validations
+- runvalidators ensures to adhere checks when a data is updated
+- Never trust req.body and always do checks and validations as hackers can send malicious data anytime
+- npm bcrypt package is used for password encryption
+-Every time we make a call , it is checked whether it is an authenticated/logged in user or not ,This can be  done via JWT ,we will send a token with ever request to validate the user whether he/she is logged in or not 
+- If you have access to someones cookie , you can hack / login ot that person's account and get all the info
+- We can offload method to userSchema methods as it contains all the logic related to user only so its better ot write that logic in the schema creation section instead of an API 
