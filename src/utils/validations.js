@@ -16,4 +16,11 @@ const validationSignUpData =(req)=>{
 
 }
 
-module.exports = validationSignUpData
+const validationsEditData =(req)=>{
+    const ALLOWED_UPDATES =["photoUrl","about","gender","age","skills"];
+
+    Object.keys()
+
+}
+
+module.exports = {validationSignUpData,validationsEditData}
