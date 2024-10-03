@@ -1,4 +1,3 @@
-
 const validator=require("validator")
 
 const validationSignUpData =(req)=>{
@@ -17,9 +16,11 @@ const validationSignUpData =(req)=>{
 }
 
 const validationsEditData =(req)=>{
-    const ALLOWED_UPDATES =["photoUrl","about","gender","age","skills"];
+    const ALLOWED_EDITS =["photoUrl","about","gender","age","skills"];
 
-    Object.keys()
+    const isEditAllowed=Object.keys(req.body).every((field)=>ALLOWED_EDITS.includes(field));
+
+    return isEditAllowed;
 
 }
 

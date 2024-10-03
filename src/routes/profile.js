@@ -18,12 +18,13 @@ profileRouter.get("/profile/view",userAuth,async(req,res)=>{
 
 profileRouter.patch("/profile/edit",userAuth ,async (req,res)=>{
     try{
-        if(!validationsEditData){
+        if(!validationsEditData(req)){
             throw new Error("Invalid Request");
         }
 
         const loggedUser= req.user;
-        const user =await user.findByIdAndUpdate({_id:userId},loggedUser,{
+        console.log(loggedUser)
+        const User =await user.findByIdAndUpdate({_id:loggedUser._id},req.body,{
             runValidators:true
         });
         
