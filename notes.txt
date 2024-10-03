@@ -8,3 +8,4 @@
 - If you have access to someones cookie , you can hack / login ot that person's account and get all the info
 - We can offload method to userSchema methods as it contains all the logic related to user only so its better ot write that logic in the schema creation section instead of an API 
 - The bets industry practise is to group different APIS into similar router
+- If we do unique : true then mongoDB automatically creates Index for it , we also can do it explicitly index:true

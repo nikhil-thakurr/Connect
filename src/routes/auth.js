@@ -1,5 +1,5 @@
 const express = require("express")
-const validateSignUpData = require("../utils/validations")
+const {validationSignUpData} = require("../utils/validations")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user")
@@ -19,7 +19,7 @@ authRouter.post("/signup",async (req,res)=>{
     try{
 
         //validate the data
-    validateSignUpData(req);
+        validationSignUpData(req);
 
     const {firstName,lastName,password,emailId}=req.body;
 
