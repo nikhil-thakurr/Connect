@@ -9,3 +9,13 @@
 - We can offload method to userSchema methods as it contains all the logic related to user only so its better ot write that logic in the schema creation section instead of an API 
 - The bets industry practise is to group different APIS into similar router
 - If we do unique : true then mongoDB automatically creates Index for it , we also can do it explicitly index:true
+- req.query vs req.params
+    // URL: /api/users?age=25
+        const age = req.query.age; // "25" (string)
+        const parsedAge = parseInt(req.query.age); // 25 (number)
+
+     but params are not string by default   
+        app.get('/api/users/:userId', (req, res) => {
+        const userId = req.params.userId; // This could be a string like "123"
+        const numericUserId = parseInt(req.params.userId); // Explicit conversion to number
+        });
