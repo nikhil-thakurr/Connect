@@ -46,7 +46,7 @@ authRouter.post("/signup",async (req,res)=>{
 
 authRouter.post("/login",async(req,res)=>{
     try{
-
+        
         const {emailId,password}=req.body;
 
         const user = await User.findOne({emailId:emailId});
@@ -63,7 +63,7 @@ authRouter.post("/login",async(req,res)=>{
         const token =await user.getJWT(); 
         console.log(token);
         res.cookie("token",token,{expires:new Date(Date.now()+8*9000000)})
-        res.send("Logged in SuccesFully")
+        res.send(user)
 
     }
     catch(err){

@@ -4,7 +4,12 @@ const app =express();
 const User = require("./models/user")
 const cookieparser = require("cookie-parser")
 const jwt = require("jsonwebtoken");
+const cors = require("cors")
 
+app.use(cors({
+    origin:"http://localhost:5173",
+    credentials:true
+}));
 app.use(express.json());
 app.use(cookieparser());
 
