@@ -47,7 +47,8 @@ const userSchema = new mongoose.Schema({
         }
     },
     photoUrl:{
-        type:String
+        type:String,
+        default:"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
     },
     about :{
         type:String,

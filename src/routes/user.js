@@ -89,7 +89,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
     // Step 1: Get all users except the logged-in user
     const allUsers = await User.find({ _id: { $ne: loggedUser._id } })
-      .select("firstName lastName")
+      .select("firstName lastName age gender about photoUrl skills")
       .skip(skip)
       .limit(limit);
 
