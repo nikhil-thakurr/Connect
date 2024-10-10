@@ -24,9 +24,7 @@ profileRouter.patch("/profile/edit",userAuth ,async (req,res)=>{
 
         const loggedUser= req.user;
         console.log(loggedUser)
-        const User =await user.findByIdAndUpdate({_id:loggedUser._id},req.body,{
-            runValidators:true
-        });
+        const User =await user.findByIdAndUpdate({_id:loggedUser._id},req.body);
         
          res.send("User Updated Succcesfully");
 
