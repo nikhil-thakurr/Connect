@@ -55,6 +55,7 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
         "skills",
         "gender",
         "about",
+        "photoUrl"
       ])
       .populate("fromUserId", [
         "firstName",
@@ -63,6 +64,7 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
         "skills",
         "gender",
         "about",
+        "photoUrl"
       ]);
 
     const data = connections.map((row) => {
@@ -121,3 +123,5 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 });
 
 module.exports = userRouter;
+
+
