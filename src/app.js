@@ -3,8 +3,8 @@ const connectDB=require("./config/database")
 const app =express();
 const User = require("./models/user")
 const cookieparser = require("cookie-parser")
-const jwt = require("jsonwebtoken");
-const cors = require("cors")
+const cors = require("cors");
+const http = require("http");
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -13,6 +13,7 @@ const corsOptions = {
     credentials: true,
     optionsSuccessStatus: 204
   };
+  
   
   // Apply CORS to all routes
   app.use(cors(corsOptions));
@@ -27,14 +28,19 @@ const authRouter =require("./routes/auth")
 const profileRouter =require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
+const initializeSocket = require("./utils/socket");
+const chatRouter = require("./routes/chat");
 
 app.use("/",authRouter);
 app.use("/",profileRouter);
 app.use("/",requestRouter)
 app.use("/",userRouter)
+app.use("/",chatRouter)
 
 
+const server  = http.createServer(app) 
 
+initializeSocket(server);
 
 app.delete("/user",async (req,res)=>{
     const userId =req.body.userId;
@@ -89,7 +95,7 @@ app.patch("/user/:userId",async (req,res)=>{
 connectDB().then (()=>{
     console.log("connection SuccessFull ...")
 
-app.listen(3000,()=>{
+server.listen(3000,()=>{
     console.log("Server is running successfully")
 });
 
